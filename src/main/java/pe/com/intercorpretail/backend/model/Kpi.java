@@ -1,33 +1,34 @@
 package pe.com.intercorpretail.backend.model;
 
-public class Kpi {
-	private String promedio;
-	private String desviacionEstandar;
+import java.math.BigDecimal;
 
+public class Kpi {
+	private BigDecimal promedio;
+	private BigDecimal desviacionEstandar;
+	
+	
+	
 	public Kpi() {
 		super();
 	}
-
-	public Kpi(String promedio, String desviacionEstandar) {
+	public Kpi(BigDecimal promedio, BigDecimal desviacionEstandar) {
 		super();
 		this.promedio = promedio;
 		this.desviacionEstandar = desviacionEstandar;
 	}
-
-	public String getPromedio() {
+	public BigDecimal getPromedio() {
 		return promedio;
 	}
-
-	public void setPromedio(String promedio) {
+	public void setPromedio(BigDecimal promedio) {
 		this.promedio = promedio;
 	}
-
-	public String getDesviacionEstandar() {
+	public BigDecimal getDesviacionEstandar() {
 		return desviacionEstandar;
 	}
-
-	public void setDesviacionEstandar(String desviacionEstandar) {
+	public void setDesviacionEstandar(BigDecimal desviacionEstandar) {
 		this.desviacionEstandar = desviacionEstandar;
 	}
+
+	
 
 }

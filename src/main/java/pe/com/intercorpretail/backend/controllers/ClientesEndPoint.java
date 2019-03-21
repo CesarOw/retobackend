@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pe.com.intercorpretail.backend.mappers.ClienteIMapper;
 import pe.com.intercorpretail.backend.model.Cliente;
+import pe.com.intercorpretail.backend.model.Kpi;
 import pe.com.intercorpretail.backend.services.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClientesEndPoint {
-
-	@Autowired
-	private ClienteIMapper iclienteMapper;
+	
 	
 	@Autowired
 	private ClienteService iclienteService;
@@ -41,8 +40,9 @@ public class ClientesEndPoint {
 	
 	
 	@GetMapping("/kpideclientes")
-	public ResponseEntity kpiClientes() {
-		return null;
+	public ResponseEntity<Kpi> kpiClientes() {
+		Kpi ikpiResponse = iclienteService.calcularKpiCliente();
+		return new ResponseEntity<>(ikpiResponse , HttpStatus.OK);
 	}
 	
 	
