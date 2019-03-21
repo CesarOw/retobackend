@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pe.com.intercorpretail.backend.mappers.ClienteIMapper;
 import pe.com.intercorpretail.backend.model.Cliente;
+import pe.com.intercorpretail.backend.services.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -21,11 +22,21 @@ public class ClientesEndPoint {
 	@Autowired
 	private ClienteIMapper iclienteMapper;
 	
+	@Autowired
+	private ClienteService iclienteService;
+	
+	
 	@PostMapping("/crearcliente")
-	public ResponseEntity crearCliente(@RequestBody Cliente icliente ) {		
-		System.out.print(" -- > " + icliente.getC_nombre());	
-		iclienteMapper.insert(icliente);
-		return new ResponseEntity<>("Transacion Realizada con Existo", HttpStatus.OK);
+	public ResponseEntity crearCliente(@RequestBody Cliente icliente ) {
+		try {
+			System.out.print(" -- > " + icliente.getC_nombre());	
+			int id = iclienteService.insertaCliente(icliente);			
+			return new ResponseEntity<>("Transacion Realizada con Existo", HttpStatus.OK);
+			
+		} catch (Exception e) {			
+			e.printStackTrace();			
+		}
+		return null;
 	}
 	
 	
@@ -37,7 +48,7 @@ public class ClientesEndPoint {
 	
 	@GetMapping("/listclientes")
 	public ResponseEntity<List<Cliente>> listarClientes(){		
-		return new ResponseEntity<>(iclienteMapper.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(iclienteService.listarCliente() , HttpStatus.OK);
 	}
 	
 }

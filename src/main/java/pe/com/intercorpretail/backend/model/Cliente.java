@@ -2,6 +2,10 @@ package pe.com.intercorpretail.backend.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class Cliente {
 
 	private Integer c_id;
@@ -9,6 +13,7 @@ public class Cliente {
 	private String c_apellido;
 	private Integer c_edad;
 	private Date c_fec_nav;
+	private Date c_fec_muerte;
 
 	public Cliente() {
 		super();
@@ -62,5 +67,15 @@ public class Cliente {
 	public void setC_fec_nav(Date c_fec_nav) {
 		this.c_fec_nav = c_fec_nav;
 	}
+
+	public Date getC_fec_muerte() {
+		return c_fec_muerte;
+	}
+
+	public void setC_fec_muerte(Date c_fec_muerte) {
+		this.c_fec_muerte = c_fec_muerte;
+	}
+	
+	
 
 }
