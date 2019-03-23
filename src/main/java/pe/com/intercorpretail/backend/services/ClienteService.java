@@ -20,58 +20,53 @@ public class ClienteService {
 	private ClienteIMapper clienteIMapper;
 
 	public Integer insertaCliente(Cliente iCliente) {
-		return clienteIMapper.insert(iCliente);
+		try {
+			return clienteIMapper.insert(iCliente);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}		
 	}
 
-	
 	public Kpi calcularKpiCliente() {
 		Kpi kpiRespuesta = new Kpi();
 		try {
-			//Promedio de Edades
-			
+			// Promedio de Edades
 			List<Cliente> iListReturn = clienteIMapper.findAll();
-			Double calculoMedia = (double) (iListReturn.stream().mapToInt(i -> i.getC_edad()).sum()/iListReturn.size());
-			
+			Double calculoMedia = (double) (iListReturn.stream().mapToInt(i -> i.getC_edad()).sum()
+					/ iListReturn.size());
 			kpiRespuesta.setPromedio(new BigDecimal(calculoMedia));
-			
-			System.out.println(iListReturn.stream().mapToInt(i -> i.getC_edad()).sum());					
-			System.out.println(iListReturn.size());
-			
+
 			Double tmpDesviacion = new Double(0.0);
-			
-			
 			for (Cliente cliente : iListReturn) {
 				if (cliente.getC_edad() != null) {
 					tmpDesviacion += Math.pow((cliente.getC_edad() - calculoMedia), 2);
 				}
 			}
-			
+
 			Double disviacion = (tmpDesviacion / iListReturn.stream().filter(ele -> ele.getC_edad() != null).count());
-			
 			kpiRespuesta.setDesviacionEstandar(new BigDecimal(disviacion));
-			
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
-		
 		return kpiRespuesta;
 	}
-	
-	
+
 	public List<Cliente> listarCliente() {
 		List<Cliente> iListReturn = null;
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		try {
-			iListReturn = clienteIMapper.findAll();			
+			iListReturn = clienteIMapper.findAll();
 			iListReturn.stream().forEach(item -> {
-				System.out.println(format.format(item.getC_fec_nav()));				
+				System.out.println(format.format(item.getC_fec_nav()));
 			});
-						
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return iListReturn;
+
 	}
 
 }
